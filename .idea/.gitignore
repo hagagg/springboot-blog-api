@@ -1,0 +1,51 @@
+# ====================
+# Java + Spring Boot
+# ====================
+
+*.class
+*.jar
+*.war
+*.log
+
+/target/
+/build/
+/out/
+
+# Maven Wrapper
+.mvn/
+!mvnw
+!mvnw.cmd
+
+# Temporary files
+*.tmp
+*.swp
+
+# ====================
+# IntelliJ IDEA
+# ====================
+
+.idea/
+*.iml
+*.iws
+
+/httpRequests/
+/shelf/
+/workspace.xml
+/dataSources/
+/dataSources.local.xml
+
+# ====================
+# Environment Files
+# ====================
+
+.env
+*.env
+*.key
+*.pem
+
+# ====================
+# OS-specific
+# ====================
+
+.DS_Store
+Thumbs.db
