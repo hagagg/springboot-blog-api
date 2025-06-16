@@ -30,7 +30,7 @@
 
 /httpRequests/
 /shelf/
-/workspace.xml
+/.idea/workspace.xml
 /dataSources/
 /dataSources.local.xml
 
