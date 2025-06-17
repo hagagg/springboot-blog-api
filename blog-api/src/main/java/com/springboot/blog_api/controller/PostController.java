@@ -22,7 +22,7 @@ public class PostController {
         return postService.create (postRequestDto , auth);
     }
 
-    @GetMapping("all")
+    @GetMapping("getAll")
     public ResponseEntity<List<PostResponseDto>> getAllPosts (Authentication auth) {
         return postService.findAllPosts (auth);
     }
@@ -35,7 +35,7 @@ public class PostController {
     }
 
     @DeleteMapping("delete/{postId}")
-    public ResponseEntity<String> deletePost (@PathVariable long postId, Authentication auth) {
+    public ResponseEntity<?> deletePost (@PathVariable long postId, Authentication auth) {
 
         return postService.deletePost(postId , auth);
     }

@@ -101,26 +101,20 @@ public class PostService {
         }
     }
 
-    public ResponseEntity<String> deletePost(long postId, Authentication auth) {
+    public ResponseEntity<?> deletePost(long postId, Authentication auth) {
 
-        try {
-            String email = auth.getName();
-            User user = userDao.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+        String email = auth.getName();
+        User user = userDao.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
 
-            Post post = postDao.findById(postId).orElseThrow(() -> new EntityNotFoundException("Post not found with id: " + postId));
+        Post post = postDao.findById(postId).orElseThrow(() -> new EntityNotFoundException("Post not found with id: " + postId));
 
-            if (post.getCreator().getId() != user.getId() && !user.getRole().equals(Role.ADMIN)) {
-                throw new AccessDeniedException("You are not authorized to delete this post");
-            }
-
-            postDao.delete(post);
-            return new ResponseEntity<>("Post deleted.", HttpStatus.OK);
-
-        } catch (AccessDeniedException e) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        if (post.getCreator().getId() != user.getId() && !user.getRole().equals(Role.ADMIN)) {
+            return new ResponseEntity<>("You are not authorized to delete this post", HttpStatus.FORBIDDEN);
         }
+
+        postDao.delete(post);
+        return new ResponseEntity<>("Post deleted.", HttpStatus.OK);
+
     }
 
 

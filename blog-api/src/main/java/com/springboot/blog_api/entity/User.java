@@ -51,5 +51,8 @@ public class User {
     @OneToMany (mappedBy = "user" , cascade = CascadeType.ALL , orphanRemoval = true)
     private List<Comment> comments;
 
+    public String getFullName() {
+        return  firstName + " " + lastName;
+    }
 
 }

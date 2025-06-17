@@ -5,7 +5,6 @@ import com.springboot.blog_api.dao.UserDao;
 import com.springboot.blog_api.dto.category.CategoryRequestDto;
 import com.springboot.blog_api.dto.category.CategoryResponseDto;
 import com.springboot.blog_api.entity.Category;
-import com.springboot.blog_api.entity.Post;
 import com.springboot.blog_api.entity.User;
 import com.springboot.blog_api.mapper.CategoryMapper;
 import jakarta.persistence.EntityNotFoundException;

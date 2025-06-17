@@ -2,6 +2,7 @@ package com.springboot.blog_api.mapper;
 
 import com.springboot.blog_api.dto.authentication.RegisterRequestDto;
 import com.springboot.blog_api.dto.user.UserResponseDto;
+import com.springboot.blog_api.dto.user.UserSummaryDto;
 import com.springboot.blog_api.entity.User;
 import com.springboot.blog_api.enums.Role;
 import org.springframework.stereotype.Component;
@@ -33,5 +34,11 @@ public class UserMapper {
                 .build();
     }
 
+    public UserSummaryDto toSummaryDto (User user) {
+        return UserSummaryDto.builder()
+                .id(user.getId())
+                .fullName(user.getFullName())
+                .build();
+    }
 
 }
