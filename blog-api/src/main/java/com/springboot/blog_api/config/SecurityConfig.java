@@ -32,10 +32,10 @@ public class SecurityConfig {
         return provider;
     }
 
-//    @Bean
-//    public String encodePassword(String password) {
-//        return new BCryptPasswordEncoder().encode(password);
-//    }
+    @Bean
+    public BCryptPasswordEncoder encodePassword() {
+        return new BCryptPasswordEncoder(12);
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

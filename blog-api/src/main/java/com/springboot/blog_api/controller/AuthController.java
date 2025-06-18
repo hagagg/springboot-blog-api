@@ -5,6 +5,7 @@ import com.springboot.blog_api.dto.authentication.AuthResponseDto;
 import com.springboot.blog_api.dto.authentication.RegisterRequestDto;
 import com.springboot.blog_api.service.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +18,12 @@ public class AuthController {
 
     @PostMapping("register")
     public ResponseEntity<AuthResponseDto> register (@RequestBody RegisterRequestDto request) {
-        return authService.register (request);
+        return new ResponseEntity<>(authService.register (request) , HttpStatus.CREATED);
     }
 
     @PostMapping("login")
     public ResponseEntity <AuthResponseDto> login (@RequestBody AuthRequestDto request) {
-        return authService.login (request);
+        return new ResponseEntity<>(authService.login (request) , HttpStatus.OK);
     }
 
 

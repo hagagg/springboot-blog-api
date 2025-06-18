@@ -5,6 +5,7 @@ import com.springboot.blog_api.dto.tag.TagResponseDto;
 import com.springboot.blog_api.entity.Tag;
 import com.springboot.blog_api.mapper.TagMapper;
 import com.springboot.blog_api.service.TagService;
+import com.springboot.blog_api.service.impl.TagServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class TagController {
 
     @PostMapping("create")
     public ResponseEntity<TagResponseDto> create (@RequestBody TagRequestDto tagRequestDto , Authentication auth) {
-        return tagService.create (tagRequestDto , auth);
+        return new ResponseEntity<>( tagService.create (tagRequestDto , auth) , HttpStatus.CREATED);
     }
 
     @PostMapping("find-or-create")

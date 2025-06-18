@@ -24,10 +24,10 @@ public class CategoryController {
     @PostMapping("create")
     public ResponseEntity<CategoryResponseDto> create (@RequestBody CategoryRequestDto categoryRequestDto , Authentication auth) {
 
-        return categoryService.create(categoryRequestDto, auth);
+        return new ResponseEntity<>(categoryService.create(categoryRequestDto, auth) , HttpStatus.CREATED);
     }
 
-    @PostMapping ("find")
+    @PostMapping ("find-by-name")
     public ResponseEntity<CategoryResponseDto> getCategoryByName(@RequestParam String name) {
 
         Category category = categoryService.findByName(name);
@@ -38,18 +38,21 @@ public class CategoryController {
     @PutMapping("update/{categoryId}")
     public ResponseEntity<CategoryResponseDto> update(@PathVariable Long categoryId ,@RequestBody CategoryRequestDto categoryRequestDto, Authentication auth) {
 
-        return categoryService.update (categoryId , categoryRequestDto , auth);
+        return new ResponseEntity<>(categoryService.update (categoryId , categoryRequestDto , auth) , HttpStatus.OK);
     }
 
     @GetMapping("all")
     public ResponseEntity<List<CategoryResponseDto>> getAllCategories (Authentication auth) {
 
-        return categoryService.findAllCategories (auth);
+        return new ResponseEntity<>(categoryService.findAllCategories (auth) , HttpStatus.OK);
     }
 
     @DeleteMapping("delete/{categoryId}")
     public ResponseEntity<String> delete (@PathVariable Long categoryId ,  Authentication auth) {
 
-        return categoryService.delete (categoryId , auth);
+        categoryService.delete(categoryId ,  auth);
+        return new ResponseEntity<>("Category deleted successfully", HttpStatus.OK);
     }
+
+
 }
