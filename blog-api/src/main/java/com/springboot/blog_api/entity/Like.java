@@ -19,7 +19,7 @@ public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime likedDate;
+    private LocalDateTime likeCreationDate;
 
     @ManyToOne
     @JoinColumn (name = "post_id")
