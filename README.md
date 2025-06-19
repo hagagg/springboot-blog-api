@@ -1,20 +1,24 @@
 # Spring Boot Blog API
 
-A RESTful Blog API built with Spring Boot featuring JWT authentication, CRUD operations for posts, comments, categries, tags, likes, and user management.
+A comprehensive RESTful Blog API built with Spring Boot, featuring secure JWT authentication, robust error handling, and clean architecture principles. Designed with modern development practices for scalable and maintainable applications.
 
 ## 🚀 Features
 
 - JWT Authentication & Authorization
-- CRUD operations for Posts, Comments, Categories
+- CRUD operations for Posts, Comments, Categories, Tags, Likes
 - User registration and management
+- Global exception handling with @ControllerAdvice
+- Clean architecture with layered design
 
 ## 🛠️ Tech Stack
 
-- **Spring Boot 3.x** - Framework
+- **Spring Boot** - Framework
 - **Spring Security** - Authentication
 - **Spring Data JPA** - Data persistence
 - **MySQL** - Database
 - **JWT** - Token-based auth
+- **Lombok** - Boilerplate code reduction
+- **Maven** - Dependency management
 
 ## 📊 Database Schema
 
