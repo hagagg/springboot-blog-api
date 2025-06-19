@@ -113,11 +113,13 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 ```
-### 3. Build & Run
-bash# Build the project
+```bash
+# Build the project
 mvn clean install
+
 # Run the application
 mvn spring-boot:run
+```
 
 <hr style="border: 2px solid #000;">
 👨‍💻 Author
