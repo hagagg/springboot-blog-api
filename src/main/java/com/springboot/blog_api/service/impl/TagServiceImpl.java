@@ -1,7 +1,6 @@
 package com.springboot.blog_api.service.impl;
 
 import com.springboot.blog_api.dao.TagDao;
-import com.springboot.blog_api.dao.UserDao;
 import com.springboot.blog_api.dto.tag.TagRequestDto;
 import com.springboot.blog_api.dto.tag.TagResponseDto;
 import com.springboot.blog_api.entity.Tag;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 public class TagServiceImpl implements TagService {
 
     private final TagMapper tagMapper;
-    private final UserDao userDao;
     private final TagDao tagDao;
 
     public TagResponseDto create(TagRequestDto tagRequestDto) {

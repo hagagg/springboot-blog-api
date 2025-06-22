@@ -1,4 +1,4 @@
-package com.springboot.blog_api.security;
+package com.springboot.blog_api.utils;
 
 import com.springboot.blog_api.dao.UserDao;
 import com.springboot.blog_api.entity.User;

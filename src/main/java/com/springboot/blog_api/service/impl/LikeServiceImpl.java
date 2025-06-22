@@ -7,7 +7,7 @@ import com.springboot.blog_api.entity.Like;
 import com.springboot.blog_api.entity.Post;
 import com.springboot.blog_api.entity.User;
 import com.springboot.blog_api.mapper.LikeMapper;
-import com.springboot.blog_api.security.SecurityUtil;
+import com.springboot.blog_api.utils.SecurityUtil;
 import com.springboot.blog_api.service.LikeService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -59,9 +59,7 @@ public class LikeServiceImpl implements LikeService {
 
         Post post = postDao.findById(postId).orElseThrow(()-> new EntityNotFoundException("Post not found"));
 
-        List<LikeResponseDto> allPostLikes = post.getLikes().stream().map(likeMapper::toDto).collect(Collectors.toList());
-
-        return allPostLikes ;
+        return post.getLikes().stream().map(likeMapper::toDto).collect(Collectors.toList());
     }
 
 }

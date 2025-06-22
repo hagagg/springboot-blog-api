@@ -7,7 +7,6 @@ import com.springboot.blog_api.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,33 +20,33 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("create")
-    public ResponseEntity<CommentResponseDto> createComment (@RequestBody CommentRequestDto commentRequestDto, Authentication auth) {
+    public ResponseEntity<CommentResponseDto> createComment (@RequestBody CommentRequestDto commentRequestDto) {
 
-        return new ResponseEntity<>(commentService.createComment(commentRequestDto , auth) , HttpStatus.CREATED);
+        return new ResponseEntity<>(commentService.createComment(commentRequestDto) , HttpStatus.CREATED);
     }
 
     @GetMapping("get/{commentId}")
-    public ResponseEntity<CommentResponseDto> getCommentById(@PathVariable Long commentId , Authentication auth) {
+    public ResponseEntity<CommentResponseDto> getCommentById(@PathVariable Long commentId) {
 
-        return new ResponseEntity<>(commentService.getCommentById (commentId , auth) , HttpStatus.OK);
+        return new ResponseEntity<>(commentService.getCommentById (commentId) , HttpStatus.OK);
     }
 
     @GetMapping("getAll")
-    public  ResponseEntity<List<CommentResponseDto>> getAllComments(Authentication auth) {
+    public  ResponseEntity<List<CommentResponseDto>> getAllComments() {
 
-        return new ResponseEntity<>(commentService.findAllComments (auth) , HttpStatus.OK);
+        return new ResponseEntity<>(commentService.findAllComments () , HttpStatus.OK);
     }
 
     @PutMapping("update/{commentId}")
-    public ResponseEntity<?> updateComment (@PathVariable Long commentId, @RequestBody UpdateCommentRequestDto updateDto, Authentication auth) {
+    public ResponseEntity<?> updateComment (@PathVariable Long commentId, @RequestBody UpdateCommentRequestDto updateDto) {
 
-        return new ResponseEntity<>(commentService.updateComment(commentId , updateDto , auth) , HttpStatus.OK);
+        return new ResponseEntity<>(commentService.updateComment(commentId , updateDto) , HttpStatus.OK);
     }
 
     @DeleteMapping("delete/{commentId}")
-    public ResponseEntity<String> deleteComment (@PathVariable Long commentId, Authentication auth) {
+    public ResponseEntity<String> deleteComment (@PathVariable Long commentId) {
 
-        commentService.deleteComment (commentId , auth);
+        commentService.deleteComment (commentId);
         return new ResponseEntity<>("Comment deleted successfully", HttpStatus.OK);
     }
 

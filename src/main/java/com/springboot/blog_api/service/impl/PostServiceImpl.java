@@ -9,7 +9,7 @@ import com.springboot.blog_api.entity.Tag;
 import com.springboot.blog_api.entity.User;
 import com.springboot.blog_api.enums.Role;
 import com.springboot.blog_api.mapper.PostMapper;
-import com.springboot.blog_api.security.SecurityUtil;
+import com.springboot.blog_api.utils.SecurityUtil;
 import com.springboot.blog_api.service.PostService;
 import com.springboot.blog_api.service.TagService;
 import jakarta.persistence.EntityNotFoundException;
@@ -56,9 +56,7 @@ public class PostServiceImpl implements PostService {
 
     public List<PostResponseDto> findAllPosts() {
 
-        List<PostResponseDto> allPosts = postDao.findAll().stream().map(postMapper::toDto).collect(Collectors.toList());
-
-        return allPosts;
+        return postDao.findAll().stream().map(postMapper::toDto).collect(Collectors.toList());
     }
 
     public PostResponseDto updatePost(long postId, PostRequestDto postRequestDto) {

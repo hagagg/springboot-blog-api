@@ -8,7 +8,6 @@ import com.springboot.blog_api.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +21,9 @@ public class CategoryController {
     private final CategoryMapper categoryMapper;
 
     @PostMapping("create")
-    public ResponseEntity<CategoryResponseDto> create (@RequestBody CategoryRequestDto categoryRequestDto , Authentication auth) {
+    public ResponseEntity<CategoryResponseDto> create (@RequestBody CategoryRequestDto categoryRequestDto) {
 
-        return new ResponseEntity<>(categoryService.create(categoryRequestDto, auth) , HttpStatus.CREATED);
+        return new ResponseEntity<>(categoryService.create(categoryRequestDto) , HttpStatus.CREATED);
     }
 
     @PostMapping ("find-by-name")
@@ -36,21 +35,21 @@ public class CategoryController {
     }
 
     @PutMapping("update/{categoryId}")
-    public ResponseEntity<CategoryResponseDto> update(@PathVariable Long categoryId ,@RequestBody CategoryRequestDto categoryRequestDto, Authentication auth) {
+    public ResponseEntity<CategoryResponseDto> update(@PathVariable Long categoryId ,@RequestBody CategoryRequestDto categoryRequestDto) {
 
-        return new ResponseEntity<>(categoryService.update (categoryId , categoryRequestDto , auth) , HttpStatus.OK);
+        return new ResponseEntity<>(categoryService.update (categoryId , categoryRequestDto) , HttpStatus.OK);
     }
 
     @GetMapping("all")
-    public ResponseEntity<List<CategoryResponseDto>> getAllCategories (Authentication auth) {
+    public ResponseEntity<List<CategoryResponseDto>> getAllCategories () {
 
-        return new ResponseEntity<>(categoryService.findAllCategories (auth) , HttpStatus.OK);
+        return new ResponseEntity<>(categoryService.findAllCategories () , HttpStatus.OK);
     }
 
     @DeleteMapping("delete/{categoryId}")
-    public ResponseEntity<String> delete (@PathVariable Long categoryId ,  Authentication auth) {
+    public ResponseEntity<String> delete (@PathVariable Long categoryId) {
 
-        categoryService.delete(categoryId ,  auth);
+        categoryService.delete(categoryId);
         return new ResponseEntity<>("Category deleted successfully", HttpStatus.OK);
     }
 

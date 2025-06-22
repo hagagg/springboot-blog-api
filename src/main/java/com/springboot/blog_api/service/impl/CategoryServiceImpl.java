@@ -1,20 +1,15 @@
 package com.springboot.blog_api.service.impl;
 
 import com.springboot.blog_api.dao.CategoryDao;
-import com.springboot.blog_api.dao.UserDao;
 import com.springboot.blog_api.dto.category.CategoryRequestDto;
 import com.springboot.blog_api.dto.category.CategoryResponseDto;
 import com.springboot.blog_api.entity.Category;
-import com.springboot.blog_api.entity.User;
-import com.springboot.blog_api.enums.Role;
 import com.springboot.blog_api.mapper.CategoryMapper;
 import com.springboot.blog_api.service.CategoryService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,14 +20,11 @@ import java.util.stream.Collectors;
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryDao categoryDao;
-    private final UserDao userDao;
     private final CategoryMapper categoryMapper;
 
-    public CategoryResponseDto create (CategoryRequestDto categoryRequestDto , Authentication auth) {
 
-        String email = auth.getName();
-        User user = userDao.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("User not found"));
-
+    @PreAuthorize("hasRole('ADMIN')")
+    public CategoryResponseDto create (CategoryRequestDto categoryRequestDto) {
         Category category = categoryMapper.toEntity(categoryRequestDto);
         categoryDao.save(category);
 
@@ -46,11 +38,8 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryDao.findByNameIgnoreCaseAndTrimmed(cleanedName).orElseThrow(()-> new EntityNotFoundException("category with name -" + name + "- not found"));
     }
 
-    public CategoryResponseDto update(Long categoryId, CategoryRequestDto categoryRequestDto, Authentication auth) {
-
-        String email = auth.getName();
-        User user =  userDao.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("User not found"));
-
+    @PreAuthorize("hasRole('ADMIN')")
+    public CategoryResponseDto update(Long categoryId, CategoryRequestDto categoryRequestDto) {
         Category category = categoryDao.findById(categoryId).orElseThrow(()-> new EntityNotFoundException("Category not found!"));
 
         BeanUtils.copyProperties(categoryRequestDto,category , "id" , "posts");
@@ -60,23 +49,13 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.toDto(category);
     }
 
-    public List<CategoryResponseDto> findAllCategories(Authentication auth) {
-
-        String email = auth.getName();
-        User user = userDao.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("User not found"));
-
-        if (!user.getRole().equals(Role.ADMIN)) {
-            throw new AccessDeniedException("Only Admin Can view all Categories");
-        }
+    public List<CategoryResponseDto> findAllCategories() {
 
         return categoryDao.findAll().stream().map(categoryMapper::toDto).collect(Collectors.toList());
     }
 
-    public void delete(Long categoryId, Authentication auth) {
-
-        String email = auth.getName();
-        User user =  userDao.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("User not found"));
-
+    @PreAuthorize("hasRole('ADMIN')")
+    public void delete(Long categoryId) {
         Category category = categoryDao.findById(categoryId).orElseThrow(()-> new EntityNotFoundException("Category not found!"));
 
         if (!category.getPosts().isEmpty()) {
