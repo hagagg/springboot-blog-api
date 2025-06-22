@@ -6,11 +6,14 @@ import com.springboot.blog_api.entity.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class TagMapper {
+public class
+TagMapper {
 
     private final PostMapper postMapper;
 
@@ -19,7 +22,10 @@ public class TagMapper {
         return TagResponseDto.builder()
                 .id(tag.getId())
                 .name(tag.getName())
-                .posts(tag.getPosts().stream().map(postMapper::toSummaryDto).collect(Collectors.toList()) )
+                .posts(
+                        Optional.ofNullable(tag.getPosts())
+                                .orElse(Collections.emptyList())
+                                .stream().map(postMapper::toSummaryDto).collect(Collectors.toList()) )
                 .build();
     }
 

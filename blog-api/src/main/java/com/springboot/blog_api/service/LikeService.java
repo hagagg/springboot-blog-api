@@ -1,16 +1,15 @@
 package com.springboot.blog_api.service;
 
 import com.springboot.blog_api.dto.like.LikeResponseDto;
-import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
 public interface LikeService {
 
-    void createLike(Long postId , Authentication auth);
+    void createLike(Long postId);
 
-    void deleteLike(Long likeId, Authentication auth);
+    void deleteLike(Long likeId);
 
-    List<LikeResponseDto> getLikesForPost(Long postId, Authentication auth);
+    List<LikeResponseDto> getLikesForPost(Long postId);
 
 }

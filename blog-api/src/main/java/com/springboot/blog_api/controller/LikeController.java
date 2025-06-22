@@ -5,7 +5,6 @@ import com.springboot.blog_api.service.LikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,23 +17,23 @@ public class LikeController {
     private final LikeService likeService;
 
     @PostMapping("create/{postId}")
-    public ResponseEntity<String> createLike (@PathVariable Long postId , Authentication auth) {
+    public ResponseEntity<String> createLike (@PathVariable Long postId) {
 
-        likeService.createLike(postId , auth);
+        likeService.createLike(postId);
         return new ResponseEntity<>("Like created successfully" , HttpStatus.CREATED);
     }
 
     @DeleteMapping("delete/{likeId}")
-    public ResponseEntity<String> deleteLike (@PathVariable Long likeId , Authentication auth) {
+    public ResponseEntity<String> deleteLike (@PathVariable Long likeId) {
 
-        likeService.deleteLike(likeId , auth);
+        likeService.deleteLike(likeId);
         return new ResponseEntity<>("Like deleted successfully" , HttpStatus.OK);
     }
 
     @GetMapping("/post-likes/{postId}")
-    public ResponseEntity<List<LikeResponseDto>> getLikesForPost (@PathVariable Long postId, Authentication auth) {
+    public ResponseEntity<List<LikeResponseDto>> getLikesForPost (@PathVariable Long postId) {
 
-        return new ResponseEntity<>(likeService.getLikesForPost (postId , auth) , HttpStatus.OK);
+        return new ResponseEntity<>(likeService.getLikesForPost (postId) , HttpStatus.OK);
     }
 
 

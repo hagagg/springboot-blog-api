@@ -6,7 +6,6 @@ import com.springboot.blog_api.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,26 +18,26 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("create")
-    public ResponseEntity<PostResponseDto> create (@RequestBody PostRequestDto postRequestDto , Authentication auth) {
-        return new ResponseEntity<>( postService.create (postRequestDto , auth),  HttpStatus.CREATED);
+    public ResponseEntity<PostResponseDto> create (@RequestBody PostRequestDto postRequestDto) {
+        return new ResponseEntity<>( postService.create (postRequestDto),  HttpStatus.CREATED);
     }
 
-    @GetMapping("getAll")
-    public ResponseEntity<List<PostResponseDto>> getAllPosts (Authentication auth) {
-        return new ResponseEntity<>(postService.findAllPosts (auth), HttpStatus.OK);
+    @GetMapping("allPosts")
+    public ResponseEntity<List<PostResponseDto>> getAllPosts () {
+        return new ResponseEntity<>(postService.findAllPosts (), HttpStatus.OK);
     }
 
     @PutMapping("update/{postId}")
-    public ResponseEntity<PostResponseDto> updatePost (@PathVariable long postId , @RequestBody PostRequestDto postRequestDto, Authentication auth) {
+    public ResponseEntity<PostResponseDto> updatePost (@PathVariable long postId , @RequestBody PostRequestDto postRequestDto) {
 
-        return new ResponseEntity<>(postService.updatePost (postId , postRequestDto , auth) , HttpStatus.OK);
+        return new ResponseEntity<>(postService.updatePost (postId , postRequestDto) , HttpStatus.OK);
 
     }
 
     @DeleteMapping("delete/{postId}")
-    public ResponseEntity<?> deletePost (@PathVariable long postId, Authentication auth) {
+    public ResponseEntity<?> deletePost (@PathVariable long postId) {
 
-        postService.deletePost (postId, auth);
+        postService.deletePost (postId);
         return new ResponseEntity<>("Post deleted successfully" , HttpStatus.OK);
     }
 
